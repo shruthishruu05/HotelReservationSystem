@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
+import java.util.regex.Pattern;
 
 
 public class HotelReservation{
@@ -122,6 +123,23 @@ public List<HotelModel> getCheapestHotel(String date1, String date2,CustomerType
 		catch(NullPointerException e) {
 			throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_NULL, "NULL Value Entered");
 		}
+		
 	}
+	
+	public boolean validateDate(String date) {
+		
+		try {
+			if(date.length() == 0)
+				throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_EMPTY, "Date entered Is EMPTY");
+			
+			String date_Reg_Ex = "^([0-9]{4})[-](([0][1-9])|([1][0-2]))[-]([0-2][0-9]|(3)[0-1])$";
+			return date.matches(date_Reg_Ex);
+		}
+		catch(NullPointerException e) {
+			throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_NULL, "Date entered	 is NULL");
+		}
+	
+	
+}
 }
 
