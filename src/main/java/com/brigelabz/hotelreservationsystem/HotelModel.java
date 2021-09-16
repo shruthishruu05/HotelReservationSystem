@@ -29,8 +29,8 @@ public class HotelModel {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	public Double getPrice(long numOfDays) {
-		return weekDayRates*numOfDays;
+	public Double getPrice(int weekdays, int weekends) {
+		return weekDayRates*weekdays + weekEndRates*weekends;
 	}
 	public HotelModel(String hotelName, double weekDayRates, double weekEndRates, int rating) {
 		super();
