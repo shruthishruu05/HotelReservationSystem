@@ -8,9 +8,12 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import com.brigelabz.hotelreservationsystem.CustomerType;
 import com.brigelabz.hotelreservationsystem.HotelModel;
 import com.brigelabz.hotelreservationsystem.HotelReservation;
+import com.brigelabz.hotelreservationsystem.HotelReservationException;
 
 
 public class HotelReservationTest
@@ -43,37 +46,89 @@ public class HotelReservationTest
 	}
 	
 	@Test
-	public void givenDateRange_find_CheapestHotel() {
+	public void givenDate_WhenProper_findCheapestHotel() {
 		HotelReservation hotelReservation = new HotelReservation();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
-		List<HotelModel> hotels = hotelReservation.getCheapestHotel("11-9-2020","12-9-2020");
+		List<HotelModel> hotels = hotelReservation.getCheapestHotel("11-9-2020","12-9-2020",CustomerType.REGULAR);
 		System.out.println("the cheapest hotel is--> ");
 		System.out.println(hotels);
 		System.out.println();
 	}
 	@Test
-	public void givenDateRange_find_CheapestAndBestRatedHotel() {
+	public void givenDateRange_WhenProper_findCheapestAndBestRatedHotel() {
 		HotelReservation hotelReservation = new HotelReservation();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
-		HotelModel hotel = hotelReservation.getCheapestAndBestRatedHotel("11-9-2020","12-9-2020");
+		HotelModel hotel = hotelReservation.getCheapestAndBestRatedHotel("11-9-2020","12-9-2020",CustomerType.REGULAR);
 		System.out.println("the cheapest and best rated hotel is-->");
 		System.out.println(hotel);
 		System.out.println();
 	}
 	@Test
-	public void givenDateRange_find_BestRatedHotel() {
+	public void givenDate_WhenProper_FindBestRatedHotel() {
 		HotelReservation hotelReservation = new HotelReservation();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
-		HotelModel hotel = hotelReservation.getBestRatedHotel("11-9-2020","12-9-2020");
+		HotelModel hotel = hotelReservation.getBestRatedHotel("11-9-2020","12-9-2020",CustomerType.REGULAR);
 		System.out.println("the best rated hotel-->");
 		System.out.println(hotel);
 		System.out.println();
+	
 	}
 	
+	@Test
+	public void givenDateAndRewardUser_Shoulffind_BestRatedHotel() {
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
+		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
+		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
+		
+		HotelModel hotel = hotelReservation.getBestRatedHotel("11-9-2020","12-9-2020",CustomerType.REWARDED);
+		System.out.println("the best rated hotel is -->");
+		System.out.println(hotel);
+		System.out.println();
+		Assert.assertEquals("Ridgewood", hotel.getHotelName());
+	}
+	
+	@Test
+	public void givenDateRange_IfIsEmpty_ShouldThrowException() {
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
+		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
+		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
+		ExpectedException exceptionRule = ExpectedException.none();
+		exceptionRule.expect(HotelReservationException.class);
+		try {
+			HotelModel hotel = hotelReservation.getBestRatedHotel(null,"12-9-2020",CustomerType.REWARDED);
+		}
+		catch(HotelReservationException e) {
+			System.out.println(e.getMessage());
+			System.out.println();
+		}
+	}
+
+	
+	@Test
+	public void givenDate_IfIsNull_ShouldThrowException() {
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
+		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
+		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
+		ExpectedException exceptionRule = ExpectedException.none();
+		exceptionRule.expect(HotelReservationException.class);
+		try {
+			HotelModel hotel = hotelReservation.getBestRatedHotel(null,"12-9-2020",CustomerType.REWARDED);
+		}
+		catch(HotelReservationException e) {
+			System.out.println(e.getMessage());
+			System.out.println();
+		}
+		
+	}
+	
+		
 }
