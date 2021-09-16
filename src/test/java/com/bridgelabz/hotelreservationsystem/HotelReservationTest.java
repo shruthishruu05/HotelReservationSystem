@@ -128,6 +128,46 @@ public class HotelReservationTest
 			System.out.println();
 		}
 		
+		
+	}
+	@Test
+	public void givenDateRangeAndCustomerType_IfEmpty_ShouldThrowException() {
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
+		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
+		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
+		ExpectedException exceptionRule = ExpectedException.none();
+		exceptionRule.expect(HotelReservationException.class);
+		try {
+			HotelModel hotel = hotelReservation.getBestRatedHotel("","12-9-2020",CustomerType.REWARDED);
+		}
+		catch(HotelReservationException e) {
+			System.out.println(e.getMessage());
+			System.out.println();
+		}
+	}
+	@Test
+	public void givenDate_WhenProper_ShouldReturnTrue() {
+		
+		HotelReservation hotelReservation = new HotelReservation();
+		boolean result = hotelReservation.validateDate("2021-12-13");
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void givenDate_WhenNotProperFormat_ShouldReturnFalse() {
+		
+		HotelReservation hotelReservation = new HotelReservation();
+		boolean result = hotelReservation.validateDate("4-10-2016");
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void givenDate_WhenSeperatedBySlashes_ShouldReturnFalse() {
+		
+		HotelReservation hotelReservation = new HotelReservation();
+		boolean result = hotelReservation.validateDate("2015/\10\2021");
+		Assert.assertFalse(result);
 	}
 	
 		
