@@ -76,7 +76,8 @@ public List<HotelModel> getCheapestHotel(String date1, String date2,CustomerType
 									 .collect(Collectors.toList());
 		return cheapestHotels;
 	}
-	catch(NullPointerException e) {
+	catch(NullPointerException e) 
+	{
 		throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_NULL, "NULL Value Entered");
 	}
 	}
