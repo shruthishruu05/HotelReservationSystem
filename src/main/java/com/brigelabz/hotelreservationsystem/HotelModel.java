@@ -1,6 +1,7 @@
 package com.brigelabz.hotelreservationsystem;
 
-public class HotelModel {
+public class HotelModel 
+{
 	private String hotelName;
 	private double weekDayRates;
 	private double  weekEndRates;
