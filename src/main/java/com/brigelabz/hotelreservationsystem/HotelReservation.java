@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class HotelReservation{
 	LinkedList<HotelModel> hotelList = new LinkedList<HotelModel>();
-	public boolean addHotel(String hotelName,double price,int rating )
+	public boolean addHotel(String hotelName,double weekDayRates,double weekEndRates ,int rating)
 	{
-		HotelModel hotelModel = new HotelModel(hotelName,price,rating);
+		HotelModel hotelModel = new HotelModel(hotelName,weekDayRates,weekEndRates,rating);
 		hotelList.add(hotelModel);
 		System.out.println(hotelModel);
 		System.out.println("\n");
@@ -24,6 +24,6 @@ public class HotelReservation{
 	public HotelModel getCheapestHotel(LocalDate startDate, LocalDate endDate) {
 		Period period = Period.between(startDate, endDate);
 		int noOfDaysBetween = (int)ChronoUnit.DAYS.between(startDate, endDate);
-		return hotelList.stream().min((h1,h2) -> h1.getPrice().compareTo(h2.getPrice())).orElse(null);
+		return hotelList.stream().min((h1,h2) -> h1.getPrice(noOfDaysBetween).compareTo(h2.getPrice(noOfDaysBetween))).orElse(null);
 	}
 }
