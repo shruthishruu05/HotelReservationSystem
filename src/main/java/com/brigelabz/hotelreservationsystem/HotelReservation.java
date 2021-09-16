@@ -1,6 +1,4 @@
 package com.brigelabz.hotelreservationsystem;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,7 +68,7 @@ public List<HotelModel> getCheapestHotel(String date1, String date2,CustomerType
 							.orElse(null);
 		
 		double cheapestPrice = cheapestHotel.getPrice(Weekdays,Weekends);
-		System.out.println("the minimum price is : "+cheapestPrice);
+		System.out.println("the minimum price is -->"+cheapestPrice);
 		Predicate<HotelModel> isMinimum = (hotel) -> (hotel.getPrice(Weekdays,Weekends) == cheapestPrice)?true:false; 
 		List<HotelModel> cheapestHotels = hotelList.stream()
 									 .filter(isMinimum)
