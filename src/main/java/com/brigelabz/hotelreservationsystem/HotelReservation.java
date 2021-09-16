@@ -1,17 +1,9 @@
 package com.brigelabz.hotelreservationsystem;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.Comparator;
 import java.util.stream.Collectors;
-import java.text.ParseException;
 import java.time.DayOfWeek;
 
 
@@ -47,6 +39,7 @@ public List<HotelModel> getCheapestHotel(LocalDate startDate, LocalDate endDate)
 				.mapToDouble(hotel -> ((hotel.getWeekEndRates()*weekends) + hotel.getWeekDayRates()*weekdays))
 				.min()
 				.orElse(Double.MAX_VALUE);
+				System.out.println( "the minimum price is "+cheapestPrice);
 
 		LinkedList<HotelModel> cheapestHotel = hotelList.stream()
 				.filter(hotel -> (hotel.getWeekEndRates()*weekends + hotel.getWeekDayRates()*weekdays) == cheapestPrice)
@@ -54,4 +47,10 @@ public List<HotelModel> getCheapestHotel(LocalDate startDate, LocalDate endDate)
 		return cheapestHotel;
 
 	}
+
+
+public LinkedList<HotelModel> getHotelList() {
+	// TODO Auto-generated method stub
+	return this.hotelList;
+}
 }
