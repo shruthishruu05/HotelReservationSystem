@@ -2,36 +2,47 @@ package com.brigelabz.hotelreservationsystem;
 
 public class HotelModel {
 	private String hotelName;
+	private double weekDayRates;
+	private double  weekEndRates;
 	private int  rating;
-	private double price;
 	public String getHotelName() {
 		return hotelName;
+	}
+	public double getWeekDayRates() {
+		return weekDayRates;
+	}
+	public double getWeekEndRates() {
+		return weekEndRates;
 	}
 	public int getRating() {
 		return rating;
 	}
-	public Double getPrice() {
-		return price;
-	}
 	public void setHotelName(String hotelName) {
 		this.hotelName = hotelName;
+	}
+	public void setWeekDayRates(double weekDayRates) {
+		this.weekDayRates = weekDayRates;
+	}
+	public void setWeekEndRates(double weekEndRates) {
+		this.weekEndRates = weekEndRates;
 	}
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+	public Double getPrice(long numOfDays) {
+		return weekDayRates*numOfDays;
 	}
-	public HotelModel(String hotelName, double price, int rating) {
+	public HotelModel(String hotelName, double weekDayRates, double weekEndRates, int rating) {
 		super();
 		this.hotelName = hotelName;
-		this.price = price;
+		this.weekDayRates = weekDayRates;
+		this.weekEndRates = weekEndRates;
 		this.rating = rating;
-		
 	}
 	@Override
 	public String toString() {
-		return "HotelModel [hotelName=" + hotelName + ", rating=" + rating + ", price=" + price + "]";
+		return "HotelModel [hotelName=" + hotelName + ", weekDayRates=" + weekDayRates + ", weekEndRates="
+				+ weekEndRates + ", rating=" + rating + "]";
 	}
 	
 }
