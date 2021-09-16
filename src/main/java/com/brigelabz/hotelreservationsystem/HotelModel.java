@@ -6,6 +6,9 @@ public class HotelModel
 	private double weekDayRates;
 	private double  weekEndRates;
 	private int  rating;
+	private double specialRewardWeekdayPrice;
+	private double specialRewardWeekendPrice;
+
 	public String getHotelName() {
 		return hotelName;
 	}
@@ -33,17 +36,23 @@ public class HotelModel
 	public Double getPrice(int weekdays, int weekends) {
 		return weekDayRates*weekdays + weekEndRates*weekends;
 	}
-	public HotelModel(String hotelName, double weekDayRates, double weekEndRates, int rating) {
-		super();
-		this.hotelName = hotelName;
-		this.weekDayRates = weekDayRates;
-		this.weekEndRates = weekEndRates;
-		this.rating = rating;
+	public Double getSpecialRewardWeekdayPrice() {
+		return specialRewardWeekdayPrice;
+	}
+	public Double getSpecialRewardWeekendPrice() {
+		return specialRewardWeekendPrice;
+	}
+	public void setSpecialRewardWeekdayPrice(double specialRewardWeekdayPrice) {
+		this.specialRewardWeekdayPrice = specialRewardWeekdayPrice;
+	}
+	public void setSpecialRewardWeekendPrice(double specialRewardWeekendPrice) {
+		this.specialRewardWeekendPrice = specialRewardWeekendPrice;
 	}
 	@Override
 	public String toString() {
 		return "HotelModel [hotelName=" + hotelName + ", weekDayRates=" + weekDayRates + ", weekEndRates="
-				+ weekEndRates + ", rating=" + rating + "]";
+				+ weekEndRates + ", rating=" + rating + ", specialRewardWeekdayPrice=" + specialRewardWeekdayPrice
+				+ ", specialRewardWeekendPrice=" + specialRewardWeekendPrice + "]";
 	}
 	
 }
