@@ -1,6 +1,9 @@
 package com.bridgelabz.hotelreservationsystem;
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -20,6 +23,14 @@ public class HotelReservationTest
 		boolean result1  = hotelReservation.addHotel("Bridgewood", 150, 50,1);
 		boolean result2 = hotelReservation.addHotel("Ridgewood",220,150,4);
 		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void givenHotel_WhenProper_shouldReturnTrue(){
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("bridge", 100, 150, 3);
+		LinkedList<HotelModel> hotelList = hotelReservation.getHotelList();
+		assertEquals(3, hotelList.get(0).getRating());
 	}
 	
 	@Test
