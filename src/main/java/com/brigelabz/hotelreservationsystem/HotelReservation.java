@@ -126,7 +126,8 @@ public List<HotelModel> getCheapestHotel(String date1, String date2,CustomerType
 		
 	}
 	
-	public boolean validateDate(String date) {
+	public boolean validateDate(String date) 
+	{
 		
 		try {
 			if(date.length() == 0)
@@ -138,8 +139,7 @@ public List<HotelModel> getCheapestHotel(String date1, String date2,CustomerType
 		catch(NullPointerException e) {
 			throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_NULL, "Date entered	 is NULL");
 		}
-	
-	
+	}
 }
-}
+
 
