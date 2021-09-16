@@ -2,35 +2,36 @@ package com.brigelabz.hotelreservationsystem;
 
 public class HotelModel {
 	private String hotelName;
-	private double hotelPrice;
-	private String hotelType;
+	private int  rating;
+	private double price;
 	public String getHotelName() {
 		return hotelName;
 	}
-	public double getHotelPrice() {
-		return hotelPrice;
+	public int getRating() {
+		return rating;
 	}
-	public String getHotelType() {
-		return hotelType;
+	public Double getPrice() {
+		return price;
 	}
 	public void setHotelName(String hotelName) {
 		this.hotelName = hotelName;
 	}
-	public void setHotelPrice(double hotelPrice) {
-		this.hotelPrice = hotelPrice;
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
-	public void setHotelType(String hotelType) {
-		this.hotelType = hotelType;
+	public void setPrice(double price) {
+		this.price = price;
 	}
-	public HotelModel(String hotelName, double hotelPrice, String hotelType) {
+	public HotelModel(String hotelName, double price, int rating) {
 		super();
 		this.hotelName = hotelName;
-		this.hotelPrice = hotelPrice;
-		this.hotelType = hotelType;
+		this.price = price;
+		this.rating = rating;
+		
 	}
 	@Override
 	public String toString() {
-		return "HotelModel [hotelName=" + hotelName + ", hotelPrice=" + hotelPrice + ", hotelType=" + hotelType + "]";
+		return "HotelModel [hotelName=" + hotelName + ", rating=" + rating + ", price=" + price + "]";
 	}
 	
 }
