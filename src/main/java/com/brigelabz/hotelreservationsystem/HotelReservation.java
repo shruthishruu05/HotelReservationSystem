@@ -1,26 +1,29 @@
 package com.brigelabz.hotelreservationsystem;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
-public class HotelReservation {
-	static ArrayList<HotelModel> hotelsArrayList = new ArrayList<HotelModel>();
-public static void main(String [] args)
-{
-	
-	System.out.println("Welcome to hotel reservation");
-	System.out.println("Enter Hotel Name");
-	Scanner scanner = new Scanner(System.in);
-	String hotelName = scanner.next();
-	System.out.println("Enter Hotel Type");
-	String hotelType= scanner.next();
-	System.out.println("Enter Hotel Price");
-	double hotelPrice = scanner.nextInt();
-	HotelModel hotelModel = new HotelModel(hotelName, hotelPrice, hotelType);
-	hotelsArrayList.add(hotelModel);
-}
-public boolean addHotel(HotelModel hotelModel) {
-	hotelsArrayList.add(hotelModel);
-	return true;
-}
+public class HotelReservation{
+	LinkedList<HotelModel> hotelList = new LinkedList<HotelModel>();
+	public boolean addHotel(String hotelName,double price,int rating )
+	{
+		HotelModel hotelModel = new HotelModel(hotelName,price,rating);
+		hotelList.add(hotelModel);
+		System.out.println(hotelModel);
+		System.out.println("\n");
+		return true;
+		
+	}
+
+	public HotelModel getCheapestHotel(LocalDate startDate, LocalDate endDate) {
+		Period period = Period.between(startDate, endDate);
+		int noOfDaysBetween = (int)ChronoUnit.DAYS.between(startDate, endDate);
+		return hotelList.stream().min((h1,h2) -> h1.getPrice().compareTo(h2.getPrice())).orElse(null);
+	}
 }
