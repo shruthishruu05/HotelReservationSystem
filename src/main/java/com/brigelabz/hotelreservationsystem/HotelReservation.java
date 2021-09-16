@@ -15,7 +15,11 @@ public class HotelReservation{
 	int Weekends =0, Weekdays =0;
 	LinkedList<HotelModel> hotelList = new LinkedList<HotelModel>();
 	
-	public void  addHotel(String hotelName, double weekDayRates, double weekEndRates, int rating, double rewardedWeekdayPrice, double rewardedweekendPrice) {
+	public void  addHotel(String hotelName, double weekDayRates, double weekEndRates, int rating, double rewardedWeekdayPrice, double rewardedweekendPrice)throws HotelReservationException 
+	{
+		try {
+			if(hotelName.length() == 0) 
+				throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_EMPTY, "Empty value entered");
 		HotelModel hotel = new HotelModel();
 		hotel.setHotelName(hotelName);
 		hotel.setWeekDayRates(weekDayRates);
@@ -24,6 +28,11 @@ public class HotelReservation{
 		hotel.setSpecialRewardWeekdayPrice(rewardedWeekdayPrice);
 		hotel.setSpecialRewardWeekendPrice(rewardedweekendPrice);
 		hotelList.add(hotel);
+		}
+		catch(NullPointerException e) {
+			throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_NULL, "NULL Value Entered");
+		}	
+		
 	}
 	
 	public LinkedList<HotelModel> getHotelList() {
@@ -31,8 +40,10 @@ public class HotelReservation{
 		return this.hotelList;
 	}
 
-public List<HotelModel> getCheapestHotel(String date1, String date2) {
-		
+public List<HotelModel> getCheapestHotel(String date1, String date2,CustomerType cType) {
+	try {
+		if(date1.length() == 0 || date2.length() == 0) 
+			throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_EMPTY, "Empty value entered");
 		Calendar startDate = Calendar.getInstance();
 		Calendar endDate = Calendar.getInstance();
 		SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy");
@@ -65,15 +76,23 @@ public List<HotelModel> getCheapestHotel(String date1, String date2) {
 									 .collect(Collectors.toList());
 		return cheapestHotels;
 	}
-	public HotelModel getCheapestAndBestRatedHotel(String date1, String date2) {
-		List<HotelModel> cheapestHotels = getCheapestHotel(date1,date2);
+	catch(NullPointerException e) {
+		throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_NULL, "NULL Value Entered");
+	}
+	}
+	public HotelModel getCheapestAndBestRatedHotel(String date1, String date2,CustomerType cType)throws HotelReservationException {
+		List<HotelModel> cheapestHotels = getCheapestHotel(date1,date2,cType);
 		
 	return cheapestHotels.stream()
 		   .max((h1,h2) -> h1.getRating()-h2.getRating())
 		   .orElse(null);
 }
 
-	public HotelModel getBestRatedHotel(String date1, String date2) {
+	public HotelModel getBestRatedHotel(String date1, String date2,CustomerType cType)throws HotelReservationException 
+	{
+		try {
+			if(date1.length() == 0 || date2.length() == 0) 
+				throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_EMPTY, "Empty value entered");
 		SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy");
 		Calendar startDate = Calendar.getInstance();
 		Calendar endDate = Calendar.getInstance();
@@ -98,6 +117,10 @@ public List<HotelModel> getCheapestHotel(String date1, String date2) {
 							   .orElse(null);
 		System.out.println("the cost is : "+bestRatedHotel.getPrice(Weekdays, Weekends));
 		return bestRatedHotel;
+		}
+		catch(NullPointerException e) {
+			throw new HotelReservationException(HotelReservationException.exceptionType.ENTERED_NULL, "NULL Value Entered");
+		}
 	}
 }
 
