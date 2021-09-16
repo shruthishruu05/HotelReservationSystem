@@ -12,42 +12,54 @@ import java.time.DayOfWeek;
 
 
 public class HotelReservation{
-	int numOfWeekends =0, numOfWeekdays =0;
+	int Weekends =0, Weekdays =0;
 	LinkedList<HotelModel> hotelList = new LinkedList<HotelModel>();
-	public boolean addHotel(String hotelName,double weekDayRates,double weekEndRates ,int rating)
-	{
-		HotelModel hotelModel = new HotelModel(hotelName,weekDayRates,weekEndRates,rating);
-		hotelList.add(hotelModel);
-		System.out.println(hotelModel);
-		System.out.println("\n");
-		return true;
-		
+	
+	public void  addHotel(String hotelName, double weekDayRates, double weekEndRates, int rating, double rewardedWeekdayPrice, double rewardedweekendPrice) {
+		HotelModel hotel = new HotelModel();
+		hotel.setHotelName(hotelName);
+		hotel.setWeekDayRates(weekDayRates);
+		hotel.setWeekEndRates(weekEndRates);
+		hotel.setRating(rating);
+		hotel.setSpecialRewardWeekdayPrice(rewardedWeekdayPrice);
+		hotel.setSpecialRewardWeekendPrice(rewardedweekendPrice);
+		hotelList.add(hotel);
+	}
+	
+	public LinkedList<HotelModel> getHotelList() {
+		// TODO Auto-generated method stub
+		return this.hotelList;
 	}
 
 public List<HotelModel> getCheapestHotel(String date1, String date2) {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
-		Calendar startDate = Calendar.getInstance(), endDate = Calendar.getInstance();
+		Calendar startDate = Calendar.getInstance();
+		Calendar endDate = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy");
 		try {
-			startDate.setTime(sdf.parse(date1));
-			endDate.setTime(sdf.parse(date2));
+			startDate.setTime(format.parse(date1));
+			endDate.setTime(format.parse(date2));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	
 		do {
-			if(startDate.get(Calendar.DAY_OF_WEEK) == 0 || startDate.get(Calendar.DAY_OF_WEEK) == 6) numOfWeekends++;
-			else numOfWeekdays++;
+			if(startDate.get(Calendar.DAY_OF_WEEK) == 0 || startDate.get(Calendar.DAY_OF_WEEK) == 6) 
+				Weekends++;
+			else 
+				{
+				Weekdays++;
+				}
 			startDate.add(Calendar.DATE,1);
 		} while(startDate.compareTo(endDate) <=0);
 		
 		HotelModel cheapestHotel = hotelList.stream()
-							.min((h1,h2) -> h1.getPrice(numOfWeekdays,numOfWeekends).compareTo(h2.getPrice(numOfWeekdays,numOfWeekends)))
+							.min((h1,h2) -> h1.getPrice(Weekdays,Weekends).compareTo(h2.getPrice(Weekdays,Weekends)))
 							.orElse(null);
 		
-		double cheapestPrice = cheapestHotel.getPrice(numOfWeekdays,numOfWeekends);
+		double cheapestPrice = cheapestHotel.getPrice(Weekdays,Weekends);
 		System.out.println("the minimum price is : "+cheapestPrice);
-		Predicate<HotelModel> isMinimum = (hotel) -> (hotel.getPrice(numOfWeekdays,numOfWeekends) == cheapestPrice)?true:false; 
+		Predicate<HotelModel> isMinimum = (hotel) -> (hotel.getPrice(Weekdays,Weekends) == cheapestPrice)?true:false; 
 		List<HotelModel> cheapestHotels = hotelList.stream()
 									 .filter(isMinimum)
 									 .collect(Collectors.toList());
@@ -61,33 +73,30 @@ public List<HotelModel> getCheapestHotel(String date1, String date2) {
 		   .orElse(null);
 }
 
-	public LinkedList<HotelModel> getHotelList() {
-		// TODO Auto-generated method stub
-		return this.hotelList;
-	}
-	
-	
-
 	public HotelModel getBestRatedHotel(String date1, String date2) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
-		Calendar startDate = Calendar.getInstance(), endDate = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy");
+		Calendar startDate = Calendar.getInstance();
+		Calendar endDate = Calendar.getInstance();
 		try {
-			startDate.setTime(sdf.parse(date1));
-			endDate.setTime(sdf.parse(date2));
+			startDate.setTime(format.parse(date1));
+			endDate.setTime(format.parse(date2));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	
 		do {
-			if(startDate.get(Calendar.DAY_OF_WEEK) == 0 || startDate.get(Calendar.DAY_OF_WEEK) == 6) numOfWeekends++;
-			else numOfWeekdays++;
+			if(startDate.get(Calendar.DAY_OF_WEEK) == 0 || startDate.get(Calendar.DAY_OF_WEEK) == 6) 
+				Weekends++;
+			else {
+				Weekdays++;
+			}
 			startDate.add(Calendar.DATE,1);
 		} while(startDate.compareTo(endDate) <=0);
 		
 		HotelModel bestRatedHotel = hotelList.stream()
 							   .max((h1,h2) -> h1.getRating()-h2.getRating())
 							   .orElse(null);
-		System.out.println("the cost is : "+bestRatedHotel.getPrice(numOfWeekdays, numOfWeekends));
+		System.out.println("the cost is : "+bestRatedHotel.getPrice(Weekdays, Weekends));
 		return bestRatedHotel;
 	}
 }
