@@ -155,7 +155,8 @@ public class HotelReservationTest
 	}
 	
 	@Test
-	public void givenDate_WhenNotProperFormat_ShouldReturnFalse() {
+	public void givenDate_WhenNotProperFormat_ShouldReturnFalse() 
+	{
 		
 		HotelReservation hotelReservation = new HotelReservation();
 		boolean result = hotelReservation.validateDate("4-10-2016");
