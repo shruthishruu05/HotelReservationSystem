@@ -1,6 +1,9 @@
 package com.bridgelabz.hotelreservationsystem;
 import static org.junit.Assert.assertEquals;
 
+	
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -12,8 +15,10 @@ import org.junit.rules.ExpectedException;
 
 import com.brigelabz.hotelreservationsystem.CustomerType;
 import com.brigelabz.hotelreservationsystem.HotelModel;
-import com.brigelabz.hotelreservationsystem.HotelReservation;
 import com.brigelabz.hotelreservationsystem.HotelReservationException;
+import com.brigelabz.hotelreservationsystem.HotelReservationImpl;
+
+
 
 
 public class HotelReservationTest
@@ -30,7 +35,7 @@ public class HotelReservationTest
 	*/
 	@Test
 	public void givenHotelName_shouldReturnProperHotelName(){
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("Lakewood",100.0,110.0,3,80.0,80.0);
 		LinkedList<HotelModel> hotelList = hotelReservation.getHotelList();
 		assertEquals("Lakewood", hotelList.get(0).getHotelName());
@@ -39,7 +44,7 @@ public class HotelReservationTest
 	
 	@Test
 	public void givenHotelRating_WhenProper_shouldReturnTrue(){
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("bridge",100.0,110.0,3,80.0,80.0);
 		LinkedList<HotelModel> hotelList = hotelReservation.getHotelList();
 		assertEquals(3, hotelList.get(0).getRating());
@@ -47,7 +52,7 @@ public class HotelReservationTest
 	
 	@Test
 	public void givenDate_WhenProper_findCheapestHotel() {
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
@@ -58,7 +63,7 @@ public class HotelReservationTest
 	}
 	@Test
 	public void givenDateRange_WhenProper_findCheapestAndBestRatedHotel() {
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
@@ -69,7 +74,7 @@ public class HotelReservationTest
 	}
 	@Test
 	public void givenDate_WhenProper_FindBestRatedHotel() {
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
@@ -82,7 +87,7 @@ public class HotelReservationTest
 	
 	@Test
 	public void givenDateAndRewardUser_Shoulffind_BestRatedHotel() {
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
@@ -96,7 +101,7 @@ public class HotelReservationTest
 	
 	@Test
 	public void givenDateRange_IfIsEmpty_ShouldThrowException() {
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
@@ -114,7 +119,7 @@ public class HotelReservationTest
 	
 	@Test
 	public void givenDate_IfIsNull_ShouldThrowException() {
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
@@ -132,7 +137,7 @@ public class HotelReservationTest
 	}
 	@Test
 	public void givenDateRangeAndCustomerType_IfEmpty_ShouldThrowException() {
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		hotelReservation.addHotel("Lakewood",110,90,3,80,80);
 		hotelReservation.addHotel("Bridgewood",150,50,4,110,50);
 		hotelReservation.addHotel("Ridgewood",220,150,5,100,40);
@@ -149,7 +154,7 @@ public class HotelReservationTest
 	@Test
 	public void givenDate_WhenProper_ShouldReturnTrue() {
 		
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		boolean result = hotelReservation.validateDate("2021-12-13");
 		Assert.assertTrue(result);
 	}
@@ -158,7 +163,7 @@ public class HotelReservationTest
 	public void givenDate_WhenNotProperFormat_ShouldReturnFalse() 
 	{
 		
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		boolean result = hotelReservation.validateDate("4-10-2016");
 		Assert.assertFalse(result);
 	}
@@ -166,7 +171,7 @@ public class HotelReservationTest
 	@Test
 	public void givenDate_WhenSeperatedBySlashes_ShouldReturnFalse() {
 		
-		HotelReservation hotelReservation = new HotelReservation();
+		HotelReservationImpl hotelReservation = new HotelReservationImpl();
 		boolean result = hotelReservation.validateDate("2015/\10\2021");
 		Assert.assertFalse(result);
 	}
